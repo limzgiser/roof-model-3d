@@ -82,7 +82,7 @@ const getPointToAreaLineNotZero = (point: { pid: string, point: THREE.Vector3 },
 
         const dis = distancePointToSegment(point.point, tmpArr[i].point, tmpArr[i + 1].point)
 
-        if (dis > 0) {
+        if (+dis.toFixed(8) > 0) {
             result.push([tmpArr[i], tmpArr[i + 1]])
         }
     }
@@ -161,7 +161,7 @@ const calculateDistance3D = (point1: any, point2: any) => {
 
     const dx = (point2[0] || point2.x) - (point1[0] || point1.x); // x 坐标差
     const dy = (point2[1] || point2.y) - (point1[1] || point1.y); // y 坐标差
-    const dz = (point2[2] || point2.z) - (point1[2] || point2.z); // z 坐标差
+    const dz = (point2[2] || point2.z) - (point1[2] || point1.z); // z 坐标差
 
     // 欧几里得距离公式
     const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
@@ -176,11 +176,16 @@ const getMaxLengthLine = (lines: any) => {
     let dis = 0
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        const tmpDis = calculateDistance3D(lines[0][0].point, lines[1][0].point)
+        const tmpDis = calculateDistance3D(line[0].point, line[1].point)
 
-        if (tmpDis > 0) {
+        if (i == 0) {
             result = line
             dis = tmpDis
+        } else {
+            if (tmpDis > dis) {
+                result = line
+                dis = tmpDis
+            }
         }
 
     }

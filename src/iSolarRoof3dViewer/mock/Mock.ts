@@ -1,134 +1,85 @@
 
 const data = {
     "areas": [
-
         {
-            "pid": "4z3izey",
+            "pid": "oqdgd06",
             "points": [
-                "69zdg6z",
-                "dxz6qhj",
-                "vlncftq",
-                "4lhxmv6"
-            ]
-        },
-        {
-            "pid": "h7q0qyw",
-            "points": [
-                "wmz299i",
-                "2uumzk0",
-                "vlncftq",
-                "dxz6qhj"
+                "hp6mmci",
+                "6vznskw",
+                "8oftlt3",
+                "nbbhe87"
             ]
         }
     ],
     "points": [
         {
-            "pid": "4lhxmv6",
+            "pid": "nbbhe87",
             "point": [
-                0.143,
-                0.281,
+                0.109,
+                0.2,
                 0.201
             ]
         },
         {
-            "pid": "69zdg6z",
+            "pid": "8oftlt3",
             "point": [
-                0.129,
-                0.439,
+                0.149,
+                0.382,
                 0.201
             ]
         },
         {
-            "pid": "vlncftq",
+            "pid": "hp6mmci",
             "point": [
-                0.284,
-                0.267,
+                0.379,
+                0.164,
                 0.201
             ]
         },
         {
-            "pid": "dxz6qhj",
+            "pid": "6vznskw",
             "point": [
-                0.35,
-                0.471,
-                0.201
-            ]
-        },
-        {
-            "pid": "2uumzk0",
-            "point": [
-                0.477,
-                0.272,
-                0.201
-            ]
-        },
-        {
-            "pid": "wmz299i",
-            "point": [
-                0.517,
-                0.625,
+                0.483,
+                0.571,
                 0.201
             ]
         }
     ],
     "lines": [
         {
-            "id": "cq198ng",
+            "id": "heojrme",
             "points": [
-                "4lhxmv6",
-                "69zdg6z"
+                "nbbhe87",
+                "hp6mmci"
             ]
         },
         {
-            "id": "o8ldc3c",
+            "id": "lns9g97",
             "points": [
-                "69zdg6z",
-                "dxz6qhj"
+                "hp6mmci",
+                "6vznskw"
             ]
         },
         {
-            "id": "osiz34z",
+            "id": "0cbzel4",
             "points": [
-                "dxz6qhj",
-                "wmz299i"
+                "6vznskw",
+                "8oftlt3"
             ]
         },
         {
-            "id": "1v5jkog",
+            "id": "io17r4d",
             "points": [
-                "wmz299i",
-                "2uumzk0"
-            ]
-        },
-        {
-            "id": "jsqsvll",
-            "points": [
-                "2uumzk0",
-                "vlncftq"
-            ]
-        },
-        {
-            "id": "imvg1e9",
-            "points": [
-                "vlncftq",
-                "4lhxmv6"
-            ]
-        },
-        {
-            "id": "6koy7lk",
-            "points": [
-                "vlncftq",
-                "dxz6qhj"
+                "8oftlt3",
+                "nbbhe87"
             ]
         }
     ],
     "roof": [
-        "69zdg6z",
-        "dxz6qhj",
-        "wmz299i",
-        "2uumzk0",
-        "vlncftq",
-        "4lhxmv6"
+        "hp6mmci",
+        "6vznskw",
+        "8oftlt3",
+        "nbbhe87"
     ]
 }
 export {

@@ -120,13 +120,31 @@ class DragHelper {
             if (!lines || lines.length !== 2) return
 
             if (this.isRoofPoint(pid)) {
+
                 // 找非屋边锁定
                 //TODO::里面可能有多条记录，随机先选一条
-                result = lines.find((item: any) => { return !this.lineIsRoofEdge(item[0].pid, item[1].pid) })
+                let tmpLines: any = lines.filter((item: any) => { return !this.lineIsRoofEdge(item[0].pid, item[1].pid) })
+
+                if (tmpLines.length) {
+                    if (tmpLines.length == 1) {
+                        result = tmpLines[0]
+                    }
+                    if (tmpLines.length > 1)
+                        result = getMaxLengthLine(tmpLines)
+                }
+
+
             } else {
                 // 找屋边锁定
 
-                result = lines.find((item: any) => { return this.lineIsRoofEdge(item[0].pid, item[1].pid) })
+                let tmpLines: any = lines.filter((item: any) => { return this.lineIsRoofEdge(item[0].pid, item[1].pid) })
+                if (tmpLines.length) {
+                    if (tmpLines.length == 1) {
+                        result = tmpLines[0]
+                    }
+                    if (tmpLines.length > 1)
+                        result = getMaxLengthLine(tmpLines)
+                }
             }
 
             if (!result) {
@@ -137,7 +155,7 @@ class DragHelper {
             return result
         }
 
-        // 获取非屋顶点的旋转线
+
         const pointLines = getPointLines()
 
         if (!pointLines || !pointLines.length) return
@@ -174,7 +192,7 @@ class DragHelper {
 
         this.setMap()
 
-        this.points.forEach((pointInfo: any) => {
+        this.points.forEach((pointInfo: any, index: number) => {
             let { pid } = pointInfo
 
             const pAreas = this.getPointAreas(pid)

@@ -187,8 +187,6 @@ class Model3dViewer {
 
             this.rectify()
 
-
-
         }
 
 
