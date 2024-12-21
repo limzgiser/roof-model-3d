@@ -111,7 +111,8 @@ class Model3dViewer {
 
             sphere.userData = {
                 featureType: 'point',
-                _id_: point.pid
+                _id_: point.pid,
+                position: sphere.position
             }
 
             this.group.add(sphere)
@@ -152,8 +153,6 @@ class Model3dViewer {
                 let pointInfo = data.points.find((oldPt: any) => oldPt.pid == pt.pid)
                 if (pointInfo) {
                     pointInfo.point = [pt.point.x, pt.point.y, pt.point.z]
-
-                    this.movedPoint[id] = pointInfo
                 }
             })
         }
@@ -177,9 +176,13 @@ class Model3dViewer {
                 break;
             }
 
-            const _edge = cloneDeep(edge)
-            _edge[0].point = new THREE.Vector3(..._edge[0].point)
-            _edge[1].point = new THREE.Vector3(..._edge[1].point)
+            const _edge = edge
+
+            const edgep1 = _data.points.find((a: any) => a.pid == _edge[0].pid).point
+            const edgep2 = _data.points.find((a: any) => a.pid == _edge[1].pid).point
+
+            _edge[0].point = new THREE.Vector3(...edgep1)
+            _edge[1].point = new THREE.Vector3(...edgep2)
 
             const result = new DragPoint().update(areaPoints, pInfo, edge[0], edge[1])
 
@@ -188,9 +191,6 @@ class Model3dViewer {
             this.rectify()
 
         }
-
-
-        this.drawIngData = _data
 
     }
 
