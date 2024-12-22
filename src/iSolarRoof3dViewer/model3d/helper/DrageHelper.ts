@@ -115,10 +115,8 @@ class DragHelper {
 
         // 按照规则获取过滤出锁定边
         const filterLine = (pid: string, lines: Array<any>) => {
-
+            if (!lines || !lines.length) return
             if (lines && lines.length == 1) return lines[0]
-            if (!lines || lines.length !== 2) return
-
             if (this.isRoofPoint(pid)) {
 
                 // 找非屋边锁定
@@ -239,8 +237,9 @@ class DragHelper {
 
                 // }
                 const res = this.getPoitAreaLockLine(pid, area.pid)
-                const willUpdaeId = this.getPoitLineUpdatePoints(pid, [...res.map((ii: any) => ii.pid)], area.pid)
+
                 if (res) {
+                    const willUpdaeId = this.getPoitLineUpdatePoints(pid, [...res.map((ii: any) => ii.pid)], area.pid)
                     this.lockInfo.push({
                         pointId: pid,
                         areaId: area.pid,

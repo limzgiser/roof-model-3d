@@ -65,7 +65,7 @@ class DragMove {
 
             this.prevMouseY = currentY;  // 更新上次的Y坐标
 
-            this.selectMesh.position.z += dir * 0.02;
+            this.selectMesh.position.z += dir * 0.01;
 
             this.udpate(Object.assign(this.selectMesh.userData, { position: this.selectMesh.position }))
 

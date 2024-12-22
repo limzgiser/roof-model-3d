@@ -1,5 +1,6 @@
 
 import { getRandomHexColor } from '../../views/2d/tools/RenderArea';
+import earcut from 'earcut'
 import * as THREE from 'three'
 
 const pickPoint = (scene: any, point: THREE.Vector3, direction: THREE.Vector3) => {
@@ -40,25 +41,15 @@ const createPolygonMesh = (vertices: Array<THREE.Vector3>, color = "#f00") => {
         points.push(item.x, item.y, item.z)
     }))
 
+
+    const indices = earcut(points, null, 3);
     const positions = new Float32Array(points);
 
     bufferGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-
-    const indexsArray: Array<number> = [];
-
-
-
-    for (let i = 1; i < vertices.length - 1; i++) {
-        indexsArray.push(0)
-        indexsArray.push(i)
-        indexsArray.push(i + 1)
-    }
-    const indexs = new Uint16Array(indexsArray);
+    const indexs = new Uint16Array(indices);
 
     bufferGeom.index = new THREE.BufferAttribute(indexs, 1);
-
-
 
     // bufferGeom.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
     const material = new THREE.MeshBasicMaterial({
