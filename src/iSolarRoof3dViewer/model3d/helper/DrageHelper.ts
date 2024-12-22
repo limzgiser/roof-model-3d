@@ -181,8 +181,31 @@ class DragHelper {
      * 2.
      */
 
-    public preproces(data: any) {
+    private getPoitLineUpdatePoints(pid: string, lockIds: Array<string>, aresId: string) {
+        let areaIds = this.areaMap[aresId].points
+        return areaIds.filter((id: string) => ![pid, ...lockIds].includes(id))
+    }
 
+    // 默认的lockline可能在联动的时候是的点固定
+    // 如果一个面有三个点收其他面联动影响移动，则使用这三个动点，做面检测
+    private getUpdateLockLine = (pid: string, areaId: string) => {
+        //一个面除了当前移动点，还有两个点被联动了，使用2两点点和当前面做平面检测
+        let areaPoints = this.areaMap[areaId].points
+        let moveIds = this.lockInfo.map((lockItem: any) => lockItem.willUpdaeId).flat()
+
+        let checkIds = areaPoints.filter((i: string) => i != pid)
+
+        let newLockPoits = moveIds.filter((i: string) => checkIds.includes(i))
+
+        if (newLockPoits.length >= 2) {
+            return newLockPoits.slice(0, 2)
+        }
+
+        return null
+    }
+
+
+    public preproces(data: any) {
 
         this._lockInfo = []
         this.pointMap = {}
@@ -197,13 +220,32 @@ class DragHelper {
 
             const pAreas = this.getPointAreas(pid)
             pAreas.forEach((area: any) => {
-                const res = this.getPoitAreaLockLine(pid, area.pid)
 
+
+                // let lockLine = this.getUpdateLockLine(pid, area.pid)
+
+                // if (lockLine) {
+                //     // let lockId = lockLine.map((ii: any) => {
+                //     //     return { pid: ii, point: new THREE.Vector3(...this.pointMap[ii].point) }
+                //     // })
+                //     // const willUpdaeId = this.getPoitLineUpdatePoints(pid, [...lockId.map((ii: any) => ii.pid)], area.pid)
+                //     // this.lockInfo.push({
+                //     //     pointId: pid,
+                //     //     areaId: area.pid,
+                //     //     lockLine: lockId,
+                //     //     willUpdaeId: willUpdaeId
+                //     // })
+                // } else {
+
+                // }
+                const res = this.getPoitAreaLockLine(pid, area.pid)
+                const willUpdaeId = this.getPoitLineUpdatePoints(pid, [...res.map((ii: any) => ii.pid)], area.pid)
                 if (res) {
                     this.lockInfo.push({
                         pointId: pid,
                         areaId: area.pid,
-                        lockLine: res
+                        lockLine: res,
+                        willUpdaeId: willUpdaeId
                     })
                 }
             });

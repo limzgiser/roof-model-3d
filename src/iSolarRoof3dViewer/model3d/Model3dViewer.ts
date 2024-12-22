@@ -119,17 +119,51 @@ class Model3dViewer {
         });
     }
 
+    public updateLoackLine = () => { }
 
-    public rectify() {
-        let lockInfo = this.dragHelper.lockInfo || []
+    public rectify(_data: any) {
+        // 纠正直接关联的面，如果一个面有三个点是移动的。那么纠正该面其他点
+        if (!data) return
 
+        let movedPoint = Object.keys(this.movedPoint)
+        _data.areas.forEach((area: any) => {
+            let points = area.points
 
-        lockInfo.forEach((item: any) => {
+            let updatedPoints = points.filter((pp: string) => movedPoint.includes(pp))
 
+            if (updatedPoints.length >= 3) {
+                let [p1, p2, p3] = updatedPoints
+
+                let areaPoints = area.points.map((id: string) => {
+                    const _point = _data.points.find((a: any) => a.pid == id).point
+                    return {
+                        pid: id,
+                        point: new THREE.Vector3(..._point)
+                    }
+                })
+
+                let pont1 = _data.points.find((ii: any) => ii.pid == p1)
+                let pont2 = _data.points.find((ii: any) => ii.pid == p2)
+                let pont3 = _data.points.find((ii: any) => ii.pid == p3)
+                const result = new DragPoint().update(areaPoints, pont1, pont2, pont3)
+                this.updatePointsValue(_data, result)
+            }
         });
-        console.log(lockInfo)
+
 
     }
+    private updatePointsValue = (data: any, list: Array<any>) => {
+
+        if (!list || !list.length) return
+        list.forEach(pt => {
+            let pointInfo = data.points.find((oldPt: any) => oldPt.pid == pt.pid)
+            if (pointInfo) {
+                pointInfo.point = [pt.point.x, pt.point.y, pt.point.z]
+                this.movedPoint[pointInfo.pid] = true
+            }
+        })
+    }
+
 
     public updateOtherPoint = (_data: any, pInfo: any) => {
 
@@ -143,19 +177,10 @@ class Model3dViewer {
 
         const { point: movePoint, pid: id } = pInfo
         const areas = _data.areas.filter((item: any) => item.points.includes(id))
-
+        this.movedPoint[pInfo.pid] = true
         if (!areas || !areas.length) return
 
-        const updatePointsValue = (data: any, list: Array<any>) => {
 
-            if (!list || !list.length) return
-            list.forEach(pt => {
-                let pointInfo = data.points.find((oldPt: any) => oldPt.pid == pt.pid)
-                if (pointInfo) {
-                    pointInfo.point = [pt.point.x, pt.point.y, pt.point.z]
-                }
-            })
-        }
 
         for (let i = 0; i < areas.length; i++) {
             const areaIds = areas[i].points;
@@ -168,12 +193,12 @@ class Model3dViewer {
             })
 
             let edgeInfo = this.dragHelper.getLockLine(id, areas[i].pid)
-            if (!edgeInfo) return
+            if (!edgeInfo) continue
 
             const edge = edgeInfo.lockLine
 
             if (!edge || !edge.length) {
-                break;
+                continue
             }
 
             const _edge = edge
@@ -186,9 +211,9 @@ class Model3dViewer {
 
             const result = new DragPoint().update(areaPoints, pInfo, edge[0], edge[1])
 
-            updatePointsValue(_data, result)
+            this.updatePointsValue(_data, result)
 
-            this.rectify()
+            this.rectify(_data)
 
         }
 
@@ -214,12 +239,14 @@ class Model3dViewer {
         if (!this.drageMove) {
             this.drageMove = new DragMove(this.engine, (pointMesh: any) => {
 
+                this.movedPoint = {}
                 const userData = pointMesh
 
                 let _data = cloneDeep(this.drawIngData || thisData)
                 let p: any = _data.points.find((item: any) => item.pid == userData._id_)
 
                 p.point[2] = userData.position.z
+
 
                 this.updateOtherPoint(_data, p)
 
@@ -229,6 +256,7 @@ class Model3dViewer {
                 this.renderPoint(_data)
                 // this.renderRoof(_data)
                 this.drawIngData = _data
+
 
             })
 
