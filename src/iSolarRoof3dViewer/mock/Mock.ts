@@ -571,40 +571,40 @@ const data = {
                 "ib2s5cr"
             ]
         },
-        // {
-        //     "pid": "vmhvjmr",
-        //     "points": [
-        //         "vpdw93g",
-        //         "xr4pmws",
-        //         "scfnh7n",
-        //         "gdm2f8x"
-        //     ]
-        // },
-        // {
-        //     "pid": "b0e984z",
-        //     "points": [
-        //         "gdm2f8x",
-        //         "scfnh7n",
-        //         "6xvqjcp"
-        //     ]
-        // },
-        // {
-        //     "pid": "95no21r",
-        //     "points": [
-        //         "6xvqjcp",
-        //         "scfnh7n",
-        //         "3smxfu5"
-        //     ]
-        // },
-        // {
-        //     "pid": "nkkx4kk",
-        //     "points": [
-        //         "iij4u52",
-        //         "xr4pmws",
-        //         "scfnh7n",
-        //         "3smxfu5"
-        //     ]
-        // }
+        {
+            "pid": "vmhvjmr",
+            "points": [
+                "vpdw93g",
+                "xr4pmws",
+                "scfnh7n",
+                "gdm2f8x"
+            ]
+        },
+        {
+            "pid": "b0e984z",
+            "points": [
+                "gdm2f8x",
+                "scfnh7n",
+                "6xvqjcp"
+            ]
+        },
+        {
+            "pid": "95no21r",
+            "points": [
+                "6xvqjcp",
+                "scfnh7n",
+                "3smxfu5"
+            ]
+        },
+        {
+            "pid": "nkkx4kk",
+            "points": [
+                "iij4u52",
+                "xr4pmws",
+                "scfnh7n",
+                "3smxfu5"
+            ]
+        }
     ],
     "points": [
         {
