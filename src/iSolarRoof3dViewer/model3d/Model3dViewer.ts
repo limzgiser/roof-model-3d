@@ -165,8 +165,13 @@ class Model3dViewer {
     }
 
 
-    public updateOtherPoint = (_data: any, pInfo: any) => {
+    public updateOtherPoint = (_data: any, pInfo: any, visited = new Set()) => {
 
+        if (visited.has(pInfo.pid)) {
+            return;
+        }
+
+        visited.add(pInfo.pid);
         /**
          * 1.获取当前点所在的面
          * 2.遍历面，获取当前点的固定轴
@@ -214,6 +219,12 @@ class Model3dViewer {
             this.updatePointsValue(_data, result)
 
             this.rectify(_data)
+
+            areaIds.forEach((otherPoint: string) => {
+                if (otherPoint !== pInfo.pid) {
+                    this.updateOtherPoint(_data, _data.points.find((ii: any) => ii.pid == otherPoint), visited);
+                }
+            });
 
         }
 

@@ -829,8 +829,311 @@ const data4 = {
     ]
 }
 
+const data5 = {
+    "areas": [
+        {
+            "pid": "ygyr2d4",
+            "points": [
+                "8qkdejm",
+                "p3s76z1",
+                "0csgitu"
+            ]
+        },
+        {
+            "pid": "0xf5c11",
+            "points": [
+                "qrl84tj",
+                "so87kfa",
+                "j9k5086",
+                "f4okdbd"
+            ]
+        },
+        {
+            "pid": "57kvcwh",
+            "points": [
+                "f4okdbd",
+                "j9k5086",
+                "gz3adq5"
+            ]
+        },
+        {
+            "pid": "8hjeu8w",
+            "points": [
+                "gz3adq5",
+                "j9k5086",
+                "so87kfa",
+                "6ujhpv0"
+            ]
+        },
+        {
+            "pid": "hkt02hv",
+            "points": [
+                "6ujhpv0",
+                "so87kfa",
+                "qrl84tj",
+                "0csgitu",
+                "p3s76z1",
+                "aci3tyw",
+                "lvjhnnu"
+            ]
+        },
+        {
+            "pid": "xpaugbz",
+            "points": [
+                "lvjhnnu",
+                "aci3tyw",
+                "3me4pdh"
+            ]
+        },
+        {
+            "pid": "ic7m2a2",
+            "points": [
+                "8qkdejm",
+                "p3s76z1",
+                "aci3tyw",
+                "3me4pdh"
+            ]
+        }
+    ],
+    "points": [
+        {
+            "pid": "3me4pdh",
+            "point": [
+                0.151,
+                0.253,
+                0.201
+            ]
+        },
+        {
+            "pid": "lvjhnnu",
+            "point": [
+                0.148,
+                0.46,
+                0.201
+            ]
+        },
+        {
+            "pid": "aci3tyw",
+            "point": [
+                0.239,
+                0.372,
+                0.201
+            ]
+        },
+        {
+            "pid": "p3s76z1",
+            "point": [
+                0.489,
+                0.369,
+                0.201
+            ]
+        },
+        {
+            "pid": "8qkdejm",
+            "point": [
+                0.567,
+                0.269,
+                0.201
+            ]
+        },
+        {
+            "pid": "0csgitu",
+            "point": [
+                0.577,
+                0.454,
+                0.201
+            ]
+        },
+        {
+            "pid": "so87kfa",
+            "point": [
+                0.356,
+                0.416,
+                0.201
+            ]
+        },
+        {
+            "pid": "6ujhpv0",
+            "point": [
+                0.278,
+                0.469,
+                0.201
+            ]
+        },
+        {
+            "pid": "qrl84tj",
+            "point": [
+                0.416,
+                0.469,
+                0.201
+            ]
+        },
+        {
+            "pid": "j9k5086",
+            "point": [
+                0.345,
+                0.603,
+                0.201
+            ]
+        },
+        {
+            "pid": "gz3adq5",
+            "point": [
+                0.263,
+                0.67,
+                0.201
+            ]
+        },
+        {
+            "pid": "f4okdbd",
+            "point": [
+                0.441,
+                0.664,
+                0.201
+            ]
+        }
+    ],
+    "lines": [
+        {
+            "id": "9fmx44q",
+            "points": [
+                "3me4pdh",
+                "lvjhnnu"
+            ]
+        },
+        {
+            "id": "y6fc5w6",
+            "points": [
+                "lvjhnnu",
+                "6ujhpv0"
+            ]
+        },
+        {
+            "id": "8xnowwu",
+            "points": [
+                "6ujhpv0",
+                "gz3adq5"
+            ]
+        },
+        {
+            "id": "yhi7iod",
+            "points": [
+                "gz3adq5",
+                "f4okdbd"
+            ]
+        },
+        {
+            "id": "ueb3lgj",
+            "points": [
+                "f4okdbd",
+                "qrl84tj"
+            ]
+        },
+        {
+            "id": "mryanoz",
+            "points": [
+                "qrl84tj",
+                "0csgitu"
+            ]
+        },
+        {
+            "id": "p2ffgq3",
+            "points": [
+                "0csgitu",
+                "8qkdejm"
+            ]
+        },
+        {
+            "id": "3g7skv4",
+            "points": [
+                "8qkdejm",
+                "3me4pdh"
+            ]
+        },
+        {
+            "id": "ulm7ye2",
+            "points": [
+                "3me4pdh",
+                "aci3tyw"
+            ]
+        },
+        {
+            "id": "8rs6dz0",
+            "points": [
+                "aci3tyw",
+                "lvjhnnu"
+            ]
+        },
+        {
+            "id": "f69gzx4",
+            "points": [
+                "p3s76z1",
+                "aci3tyw"
+            ]
+        },
+        {
+            "id": "juybu54",
+            "points": [
+                "8qkdejm",
+                "p3s76z1"
+            ]
+        },
+        {
+            "id": "q7hl72f",
+            "points": [
+                "p3s76z1",
+                "0csgitu"
+            ]
+        },
+        {
+            "id": "hb39ndd",
+            "points": [
+                "so87kfa",
+                "6ujhpv0"
+            ]
+        },
+        {
+            "id": "615pesh",
+            "points": [
+                "so87kfa",
+                "qrl84tj"
+            ]
+        },
+        {
+            "id": "e80wvsr",
+            "points": [
+                "so87kfa",
+                "j9k5086"
+            ]
+        },
+        {
+            "id": "02llv22",
+            "points": [
+                "j9k5086",
+                "gz3adq5"
+            ]
+        },
+        {
+            "id": "ocuy356",
+            "points": [
+                "j9k5086",
+                "f4okdbd"
+            ]
+        }
+    ],
+    "roof": [
+        "lvjhnnu",
+        "6ujhpv0",
+        "gz3adq5",
+        "f4okdbd",
+        "qrl84tj",
+        "0csgitu",
+        "8qkdejm",
+        "3me4pdh"
+    ]
+}
 
-const data = data3
+const data = data5
 export {
     data
 }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>递归调整点位置</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>三维点位置调整</h1>
+    <p>修改某个点的位置，并确保其与其他点保持共面。</p>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.138.3/build/three.min.js"></script>
+    <script>
+        // 计算平面方程的函数
+        function computePlaneEquation(p1, p2, p3) {
+            const v1 = new THREE.Vector3().subVectors(p2, p1);
+            const v2 = new THREE.Vector3().subVectors(p3, p1);
+            const normal = new THREE.Vector3().crossVectors(v1, v2);
+            const A = normal.x, B = normal.y, C = normal.z;
+            const D = -(A * p1.x + B * p1.y + C * p1.z);
+            return { A, B, C, D };
+        }
+
+        // 检查一个点是否在平面上
+        function isPointOnPlane(point, plane) {
+            const { A, B, C, D } = plane;
+            const { x, y, z } = point;
+            return A * x + B * y + C * z + D === 0;
+        }
+
+        // 修正点的位置以确保它位于平面上
+        function fixPointToPlane(point, plane) {
+            const { A, B, C, D } = plane;
+            const t = -(A * point.x + B * point.y + C * point.z + D) /
+                (A * A + B * B + C * C);
+            return new THREE.Vector3(
+                point.x + A * t,
+                point.y + B * t,
+                point.z + C * t
+            );
+        }
+
+        // 递归调整点的位置
+        function adjustPointRecursive(pointId, newCoords, areas, points, visited = new Set()) {
+            // 如果这个点已经调整过，避免无限递归
+            if (visited.has(pointId)) {
+                return;
+            }
+            visited.add(pointId);
+
+            // 获取当前点和新的坐标
+            const point = points.find(p => p.pid === pointId);
+            const newPoint = new THREE.Vector3(...newCoords);
+
+            // 计算所有包含这个点的面
+            const affectedAreas = areas.filter(area => area.points.includes(pointId));
+
+            // 计算平面并修正其他点
+            affectedAreas.forEach(area => {
+                const pointsOnArea = area.points.map(pid => points.find(p => p.pid === pid).point);
+
+                // 使用前三个点计算平面
+                const p1 = new THREE.Vector3(...pointsOnArea[0]);
+                const p2 = new THREE.Vector3(...pointsOnArea[1]);
+                const p3 = new THREE.Vector3(...pointsOnArea[2]);
+
+                const plane = computePlaneEquation(p1, p2, p3);
+
+                // 修改当前点，并确保它在平面上
+                if (!isPointOnPlane(newPoint, plane)) {
+                    const fixedPoint = fixPointToPlane(newPoint, plane);
+                    point.point = [fixedPoint.x, fixedPoint.y, fixedPoint.z];
+                } else {
+                    point.point = [newPoint.x, newPoint.y, newPoint.z];
+                }
+
+                // 递归调整所有其它面上与当前点相连的点
+                area.points.forEach(otherPointId => {
+                    if (otherPointId !== pointId) {
+                        adjustPointRecursive(otherPointId, points.find(p => p.pid === otherPointId).point, areas, points, visited);
+                    }
+                });
+            });
+        }
+
+        // 示例数据：修改某个点的坐标
+        const areas = [
+            { pid: "area1", points: ["p1", "p2", "p3"] },
+            { pid: "area2", points: ["p2", "p3", "p4"] }
+        ];
+
+        const points = [
+            { pid: "p1", point: [0, 0, 0] },
+            { pid: "p2", point: [1, 0, 0] },
+            { pid: "p3", point: [0, 1, 0] },
+            { pid: "p4", point: [1, 1, 0] }
+        ];
+
+        console.log("初始点位置:");
+        console.log(points);
+
+        // 修改 "p2" 点的位置，并确保共面
+        adjustPointRecursive("p2", [0.5, 0.5, 0], areas, points);
+
+        console.log("调整后的点位置:");
+        console.log(points);
+    </script>
+</body>
+
+</html>
