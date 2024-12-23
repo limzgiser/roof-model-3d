@@ -62,6 +62,87 @@ const createPolygonMesh = (vertices: Array<THREE.Vector3>, color = "#f00") => {
 
     return new THREE.Mesh(bufferGeom, material);
 }
+const createRoof = (vertices: Array<THREE.Vector3>) => {
+
+
+    const createGeoemetry = (pointsTop: any, _indices: any = undefined) => {
+
+        const bufferGeom = new THREE.BufferGeometry();
+
+
+
+        const indices = _indices || earcut(pointsTop, null, 3);
+        const positions = new Float32Array(pointsTop);
+
+        bufferGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const indexs = new Uint16Array(indices);
+
+        bufferGeom.index = new THREE.BufferAttribute(indexs, 1);
+
+        return bufferGeom
+    }
+
+    let pointsTop: Array<number> = []
+
+    let pointsBottom: Array<number> = []
+
+    vertices.forEach((item => {
+        pointsTop.push(item.x, item.y, item.z)
+        pointsBottom.push(item.x, item.y, 0)
+    }))
+
+    let bufferGeom = createGeoemetry(pointsTop.slice(), null)
+
+    const material = new THREE.MeshBasicMaterial({
+
+        color: "#ddd",
+        transparent: true,
+        opacity: 1,
+        side: THREE.DoubleSide
+    });
+
+
+    const topMesh: any = new THREE.Mesh(bufferGeom, material);
+    topMesh.scale.y = -1
+
+
+    let bufferGeomButtom = createGeoemetry(pointsBottom.slice(), null)
+
+
+    const bottomMesh = new THREE.Mesh(bufferGeomButtom, material);
+    bottomMesh.scale.y = -1
+    let group = new THREE.Group()
+
+    group.add(topMesh)
+    group.add(bottomMesh)
+
+
+    let createSideWall = () => {
+
+        for (let i = 0; i < vertices.length - 1; i++) {
+            const p1 = [vertices[i].x, vertices[i].y, 0];
+            const p2 = [vertices[i + 1].x, vertices[i + 1].y, 0];
+
+            const p3 = [vertices[i + 1].x, vertices[i + 1].y, vertices[i + 1].z];
+            const p4 = [vertices[i].x, vertices[i].y, vertices[i].z];
+
+            const geom = createGeoemetry([p1, p2, p3, p4].flat(2), [0, 1, 2, 0, 2, 3])
+
+            const mesh = new THREE.Mesh(geom, material);
+            mesh.scale.y = -1
+            group.add(mesh)
+
+
+        }
+
+
+    }
+
+    createSideWall()
+
+    return group
+}
 
 // 
 const getPointToAreaLineNotZero = (point: { pid: string, point: THREE.Vector3 }, area: Array<any>) => {
@@ -128,24 +209,24 @@ const distancePointToSegment = (point: THREE.Vector3, segmentStart: THREE.Vector
 }
 
 // const arraysAreEqual = (arr1: Array<string>, arr2: Array<string>) => {
-//     if (arr1.length !== arr2.length) {
-//         return false;
-//     }
+//     if (arr1.length !== arr2.length) {
+//         return false;
+//     }
 
-//     const set1 = new Set(arr1);
-//     const set2 = new Set(arr2);
+//     const set1 = new Set(arr1);
+//     const set2 = new Set(arr2);
 
-//     if (set1.size !== set2.size) {
-//         return false;
-//     }
+//     if (set1.size !== set2.size) {
+//         return false;
+//     }
 
-//     for (let item of set1) {
-//         if (!set2.has(item)) {
-//             return false;
-//         }
-//     }
+//     for (let item of set1) {
+//         if (!set2.has(item)) {
+//             return false;
+//         }
+//     }
 
-//     return true;
+//     return true;
 // }
 const calculateDistance3D = (point1: any, point2: any) => {
 
@@ -188,6 +269,7 @@ const getMaxLengthLine = (lines: any) => {
 export {
     pickPoint,
     createPolygonMesh,
+    createRoof,
     getMaxEdge,
     distancePointToSegment,
     getPointToAreaLineNotZero,

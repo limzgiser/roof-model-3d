@@ -7,7 +7,7 @@ import { getAreaPoint } from '../mock/Tools'
 import { ISFEngine } from '../Engine'
 import { DragMove } from './DragMove'
 import { cloneDeep } from 'lodash'
-import { createPolygonMesh, getMaxEdge } from './tool'
+import { createPolygonMesh, createRoof, getMaxEdge } from './tool'
 import { COLORS } from './Constant'
 import { DragPoint } from './DragPoint'
 import { DragHelper } from './helper/DrageHelper'
@@ -32,18 +32,18 @@ class Model3dViewer {
     }
 
     // private transformInfo = {
-    //     '111':{
-    //         areaIndex:0,
-    //         lockLine:[id1,id2]
-    //     },
+    //     '111':{
+    //         areaIndex:0,
+    //         lockLine:[id1,id2]
+    //     },
 
     // }
 
     private lockedLine = [
         // {
-        //     pid:'',
-        //     areaIndex:'',
-        //     lockLine:[pid1,pid2]
+        //     pid:'',
+        //     areaIndex:'',
+        //     lockLine:[pid1,pid2]
         // }
     ]
 
@@ -69,8 +69,8 @@ class Model3dViewer {
         roofTopArea.forEach((p: any) => {
             points.push(new THREE.Vector3((p[0]), (p[1]), p[2]))
         })
-        let mesh = createPolygonMesh(points, 'yellow')
-        mesh.scale.y = -1
+        let mesh: any = createRoof(points, 'yellow')
+
         this.group.add(mesh)
 
     }
@@ -233,7 +233,7 @@ class Model3dViewer {
         this.renderArea(thisData)
 
         this.renderPoint(thisData)
-
+        this.renderRoof(thisData)
         this.dragHelper.preproces(thisData)
 
         if (!this.drageMove) {
@@ -254,7 +254,7 @@ class Model3dViewer {
 
                 this.renderArea(_data)
                 this.renderPoint(_data)
-                // this.renderRoof(_data)
+                this.renderRoof(_data)
                 this.drawIngData = _data
 
 
